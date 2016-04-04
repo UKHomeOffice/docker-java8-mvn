@@ -1,6 +1,6 @@
 FROM quay.io/ukhomeofficedigital/centos-base
 
-RUN yum install java-1.8.0-openjdk-devel -y
+RUN yum install java-1.8.0-openjdk-devel which -y
 
 RUN mkdir -p $HOME/.m2/ && \
     curl -sS \
