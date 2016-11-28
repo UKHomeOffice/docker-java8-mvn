@@ -1,6 +1,14 @@
 FROM quay.io/ukhomeofficedigital/openjdk8:v1.1.0
 
-ENV MVN_VERSION 3.3.9
+RUN yum clean all && \
+    yum update -y && \
+    yum install -y wget curl unzip gettext git && \
+    yum clean all && \
+    rpm --rebuilddb
+
+ENV MVN_VERSION 3.3.9 \
+    ARTIFACTORY_USERNAME=user \
+    ARTIFACTORY_PASSWORD=pass
 
 RUN mkdir -p $HOME/.m2/ && \
     curl -sS \
@@ -16,4 +24,8 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ENTRYPOINT ["/usr/local/bin/mvn"]
+COPY settings.xml.sub $HOME/.m2/.
+
+COPY entrypoint.sh /root/entrypoint.sh
+
+ENTRYPOINT ["/root/entrypoint.sh"]

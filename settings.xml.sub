@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <servers>
+    <server>
+      <username>${ARTIFACTORY_USERNAME}</username>
+      <password>${ARTIFACTORY_PASSWORD}</password>
+      <id>artifactory</id>
+    </server>
+  </servers>
+  <mirrors>
+    <mirror>
+      <id>artifactory</id>
+      <name>Artifactory</name>
+      <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/repos</url>
+      <mirrorOf>*</mirrorOf>
+    </mirror>
+  </mirrors>
+  <localRepository>.m2</localRepository>
+  <profiles>
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <id>artifactory</id>
+          <name>libs-release</name>
+          <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/libs-release</url>
+        </repository>
+        <repository>
+          <snapshots />
+          <id>artifactory</id>
+          <name>libs-snapshot</name>
+          <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/libs-snapshot</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <id>artifactory</id>
+          <name>plugins-release</name>
+          <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/plugins-release</url>
+        </pluginRepository>
+        <pluginRepository>
+          <snapshots />
+          <id>artifactory</id>
+          <name>plugins-snapshot</name>
+          <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/plugins-snapshot</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>artifactory</id>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>artifactory</activeProfile>
+  </activeProfiles>
+</settings>
