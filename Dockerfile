@@ -6,7 +6,7 @@ RUN yum clean all && \
     yum clean all && \
     rpm --rebuilddb
 
-ENV MVN_VERSION 3.3.9 \
+ENV MVN_VERSION=3.3.9 \
     ARTIFACTORY_USERNAME=user \
     ARTIFACTORY_PASSWORD=pass
 
