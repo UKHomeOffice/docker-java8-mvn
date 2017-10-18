@@ -1,7 +1,7 @@
 FROM quay.io/ukhomeofficedigital/openjdk8:v1.1.0
 
 RUN yum clean all && \
-    yum update -y && \
+    yum update -y --exclude iputils* --exclude filesystem* && \
     yum install -y wget curl unzip gettext git && \
     yum clean all && \
     rpm --rebuilddb
