@@ -1,28 +1,22 @@
 pipeline:
   build_docker_image:
-    image: docker:1.11
+    image: docker:17.09.0-ce
     environment:
-      - DOCKER_HOST=tcp://127.0.0.1:2375
+      - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
-      - docker build -t java8-mvn .
+      - docker build -t java8-mvn:$${DRONE_COMMIT_SHA} .
     when:
       event: [push, tag]
 
   image_to_quay:
-    image: docker:1.11
+    image: docker:17.09.0-ce
+    secrets:
+      - docker_password
     environment:
-      - DOCKER_HOST=tcp://127.0.0.1:2375
+      - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
-      - docker login -u="ukhomeofficedigital+drone" -p=${DOCKER_PASSWORD} quay.io
-      - docker tag java8-mvn quay.io/ukhomeofficedigital/java8-mvn:${DRONE_TAG}
-      - docker push quay.io/ukhomeofficedigital/java8-mvn:${DRONE_TAG}
+      - docker login -u="ukhomeofficedigital+drone" -p=$${DOCKER_PASSWORD} quay.io
+      - docker tag java8-mvn:$${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/java8-mvn:$${DRONE_TAG}
+      - docker push quay.io/ukhomeofficedigital/java8-mvn:$${DRONE_TAG}
     when:
       event: tag
-
-services:
-  dind:
-    image: docker:1.11-dind
-    privileged: true
-    command:
-      - "-s"
-      - "overlay"
