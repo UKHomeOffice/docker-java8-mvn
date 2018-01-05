@@ -1,12 +1,12 @@
 FROM quay.io/ukhomeofficedigital/openjdk8:latest
 
 RUN yum clean all && \
-    yum update -y --exclude iputils* && \
+    yum update -y && \
     yum install -y wget curl unzip gettext git && \
     yum clean all && \
     rpm --rebuilddb
 
-ENV MVN_VERSION=3.3.9 \
+ENV MVN_VERSION=3.5.2 \
     ARTIFACTORY_USERNAME=user \
     ARTIFACTORY_PASSWORD=pass
 
