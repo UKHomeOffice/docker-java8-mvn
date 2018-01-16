@@ -1,13 +1,31 @@
-FROM quay.io/ukhomeofficedigital/centos-base
+FROM quay.io/ukhomeofficedigital/openjdk8:latest
 
-RUN yum install java-1.8.0-openjdk-devel which -y
+RUN yum clean all && \
+    yum update -y && \
+    yum install -y wget curl unzip gettext git && \
+    yum clean all && \
+    rpm --rebuilddb
+
+ENV MVN_VERSION=3.5.2 \
+    ARTIFACTORY_USERNAME=user \
+    ARTIFACTORY_PASSWORD=pass
 
 RUN mkdir -p $HOME/.m2/ && \
     curl -sS \
-    http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz \
-    -o /tmp/apache-maven-3.3.1-bin.tar.gz && \
-    tar xvzf /tmp/apache-maven-3.3.1-bin.tar.gz -C /tmp && \
-    mv /tmp/apache-maven-3.3.1 /var/local/ && \
-    ln -s /var/local/apache-maven-3.3.1/bin/mvnyjp /usr/local/bin/mvnyjp && \
-    ln -s /var/local/apache-maven-3.3.1/bin/mvnDebug /usr/local/bin/mvnDebug && \
-    ln -s /var/local/apache-maven-3.3.1/bin/mvn /usr/local/bin/mvn
+    http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/${MVN_VERSION}/binaries/apache-maven-${MVN_VERSION}-bin.tar.gz \
+    -o /tmp/apache-maven-${MVN_VERSION}-bin.tar.gz && \
+    tar xvzf /tmp/apache-maven-${MVN_VERSION}-bin.tar.gz -C /tmp && \
+    mv /tmp/apache-maven-${MVN_VERSION} /var/local/ && \
+    ln -s /var/local/apache-maven-${MVN_VERSION}/bin/mvnyjp /usr/local/bin/mvnyjp && \
+    ln -s /var/local/apache-maven-${MVN_VERSION}/bin/mvnDebug /usr/local/bin/mvnDebug && \
+    ln -s /var/local/apache-maven-${MVN_VERSION}/bin/mvn /usr/local/bin/mvn
+
+RUN mkdir /app
+
+WORKDIR /app
+
+COPY settings.xml.sub $HOME/.m2/.
+
+COPY entrypoint.sh /root/entrypoint.sh
+
+ENTRYPOINT ["/root/entrypoint.sh"]
