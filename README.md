@@ -30,6 +30,25 @@ pipeline:
     drone_s3_cache_mode: "push"
 ```
 
+To deploy artifacts to Artifactory, please pass valid credentials via the ARTIFACTORY\_USERNAME and ARTIFACTORY\_PASSWORD environment variables.
+
+You'll also need to include the following in your POM file:
+```
+<distributionManagement>
+        <repository>
+                <id>artifactory</id>
+                <name>libs-release-local</name>
+                <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+                <id>artifactory</id>
+                <name>libs-snapshot-local</name>
+                <url>https://artifactory.digital.homeoffice.gov.uk/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+</distributionManagement>
+```
+Maven should then deploy to Artifactory during the "deploy" lifecycle phase.
+
 ## Contributing
 
 Feel free to submit pull requests and issues. If it's a particularly large PR, you may wish to

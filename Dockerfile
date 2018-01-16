@@ -24,8 +24,8 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY settings.xml.sub $HOME/.m2/.
+COPY settings.xml $HOME/.m2/
 
-COPY entrypoint.sh /root/entrypoint.sh
+ENTRYPOINT ["/bin/bash", "-c"]
 
-ENTRYPOINT ["/root/entrypoint.sh"]
+CMD ["mvn -v"]
