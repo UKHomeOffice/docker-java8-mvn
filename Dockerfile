@@ -2,7 +2,7 @@ FROM quay.io/ukhomeofficedigital/openjdk8:latest
 
 RUN yum clean all && \
     yum update -y && \
-    yum install -y wget curl unzip gettext git && \
+    yum install -y git && \
     yum clean all && \
     rpm --rebuilddb
 
