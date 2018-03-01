@@ -5,29 +5,23 @@ Docker image with java8 and maven. Not intended to use as a base for java projec
 
 ## Usage
 
-This image is to be used to build your app using maven. Below in an example of how you would do this in drone with caching enabled.
+This image is to be used to build your app using maven.
 
 Contents of .drone.yml:
 ```
 pipeline:
-  drone_s3_cache_pull:
-     image: quay.io/ukhomeofficedigital/drone-s3cache:v0.1.0
-     drone_s3_cache_mode: "pull"
-
   build:
     commands:
-       - "/root/entrypoint.sh 'mvn clean package'"
-    image: quay.io/ukhomeofficedigital/java8-mvn:v3.3.9
+      - "/root/entrypoint.sh 'mvn clean install'"
+    secrets:
+      - artifactory_username
+      - artifactory_password
+    image: quay.io/ukhomeofficedigital/java8-mvn:v3.5.2.1
     when:
       event:
         - push
         - pull_request
 
-  drone_s3_cache_push:
-    image: quay.io/ukhomeofficedigital/drone-s3cache:v0.1.0
-    drone_s3_cache_folders:
-      - .m2
-    drone_s3_cache_mode: "push"
 ```
 
 To deploy artifacts to Artifactory, please pass valid credentials via the ARTIFACTORY\_USERNAME and ARTIFACTORY\_PASSWORD environment variables.
@@ -75,4 +69,3 @@ in this project.
 
 This project is licensed under the GPL v2 License - see the
 [LICENSE.md](https://github.com/UKHomeOffice/docker-java8-mvn/blob/master/LICENSE) file for details
-
