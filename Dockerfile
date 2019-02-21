@@ -6,11 +6,10 @@ RUN yum clean all && \
     yum clean all && \
     rpm --rebuilddb
 
-ENV MVN_VERSION=3.5.2 \
-    ARTIFACTORY_USERNAME=user \
-    ARTIFACTORY_PASSWORD=pass
+ENV HOME=/root \
+    MVN_VERSION=3.6.0
 
-RUN mkdir -p $HOME/.m2/ && \
+RUN mkdir -p ${HOME}/.m2/ && \
     curl -sS \
     http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/${MVN_VERSION}/binaries/apache-maven-${MVN_VERSION}-bin.tar.gz \
     -o /tmp/apache-maven-${MVN_VERSION}-bin.tar.gz && \
@@ -24,7 +23,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY settings.xml $HOME/.m2/
+COPY settings.xml ${HOME}/.m2/
 
 ENTRYPOINT ["/bin/bash", "-c"]
 
