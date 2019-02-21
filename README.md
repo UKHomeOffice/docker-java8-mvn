@@ -16,7 +16,7 @@ pipeline:
     secrets:
       - artifactory_username
       - artifactory_password
-    image: quay.io/ukhomeofficedigital/java8-mvn:v3.5.2.1
+    image: quay.io/ukhomeofficedigital/java8-mvn:v3.6.0
     when:
       event:
         - push
