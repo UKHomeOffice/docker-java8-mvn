@@ -7,7 +7,7 @@ RUN yum clean all && \
     rpm --rebuilddb
 
 ENV HOME=/root \
-    MVN_VERSION=3.6.0
+    MVN_VERSION=3.8.1
 
 RUN mkdir -p ${HOME}/.m2/ && \
     curl -sS \
