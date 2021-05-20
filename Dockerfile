@@ -1,7 +1,7 @@
 FROM quay.io/ukhomeofficedigital/openjdk8:v1.8.0.292
 
 ENV HOME=/root \
-    MVN_VERSION=3.8.1 
+    MVN_VERSION=3.8.2
 
 RUN dnf update -y && \ 
     dnf upgrade -y && \
