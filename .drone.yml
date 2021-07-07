@@ -24,8 +24,7 @@ steps:
   pull: always
   settings:
     image_name: java8-mvn:${DRONE_COMMIT_SHA}
-    # Whitelisting CVE-2021-26291 temporarily as the recommended Maven version still contains shared-utils from vulnerable v3.2.1
-    whitelist: CVE-2019-5827, CVE-2020-14363, CVE-2021-25215, CVE-2021-27219, CVE-2021-26291
+    whitelist: CVE-2019-5827, CVE-2020-14363, CVE-2021-25215, CVE-2021-27219
   when:
     event:
     - push
