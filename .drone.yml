@@ -24,7 +24,7 @@ steps:
   pull: always
   settings:
     image_name: java8-mvn:${DRONE_COMMIT_SHA}
-    whitelist: CVE-2019-5827, CVE-2020-14363, CVE-2021-25215, CVE-2021-27219
+    whitelist: CVE-2019-5827, CVE-2020-14363, CVE-2021-25215, CVE-2021-27219, CVE-2021-31535
   when:
     event:
     - push
