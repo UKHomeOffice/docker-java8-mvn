@@ -1,11 +1,11 @@
 # docker-java8-mvn
-base docker image with java8 and maven
+Base Docker image with Java 8 and Maven.
 
-Docker image with java8 and maven. Not intended to use as a base for java projects, just for building.
+Docker image with java8 and maven. Not intended to use as a base for Java projects, just for building.
 
 ## Usage
 
-This image is to be used to build your app using maven.
+This image is to be used to build your app using Maven.
 
 Contents of .drone.yml:
 ```
