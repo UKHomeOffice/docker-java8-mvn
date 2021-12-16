@@ -1,4 +1,7 @@
 # docker-java8-mvn
+
+**Deprecation notice: This repo is no longer maintained by ACP. Please refer to our docs for guidance on deploying to Artifactory with Maven. You’re welcome to fork this repo according to your own needs.**
+
 Base Docker image with Java 8 and Maven.
 
 Docker image with java8 and maven. Not intended to use as a base for Java projects, just for building.
